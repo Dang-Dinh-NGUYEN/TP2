@@ -13,7 +13,7 @@ début:
         C11 = quickProduit(A11,B11) + quickProduit(A12,B21)  
         C12 = quickProduit(A11,B12) + quickProduit(A12,B22)         
         C21 = quickProduit(A21,B11) + quickProduit(A22,B21)     
-        C22 = quickProduit(A21,B11) + quickProduit(A22,B22)
+        C22 = quickProduit(A21,B12) + quickProduit(A22,B22)     
 retourner C     
 fin
 
