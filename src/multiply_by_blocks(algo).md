@@ -1,3 +1,13 @@
+
+* L2-informatique(Aix-Montperrin)
+* TP2-Structures Discrètes
+* Groupe 2.1
+* NGUYEN Dang Dinh
+* NGUYEN Duc Duong
+* (2021-2022)
+* github: https://github.com/Dang-Dinh-NGUYEN/TP2.git
+
+
 En donnant un algorithme récursif permettant de calculer le produit de deux matrices carrées de même dimension, nous voudrions montrer un exemple comme ci-dessous:
 
 quickProduit:   

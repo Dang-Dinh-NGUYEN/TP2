@@ -1,6 +1,15 @@
+/**
+ * L2-informatique(Aix-Montperrin)
+ * TP2-Structures Discrètes
+ * Groupe 2.1
+ * NGUYEN Dang Dinh
+ * NGUYEN Duc Duong
+ * (2021-2022)
+ * github: https://github.com/Dang-Dinh-NGUYEN/TP2.git
+ */
+
 import java.util.Arrays;
 import java.util.Objects;
-import java.math.*;
 
 public class squareSubMatrice {
     private int dimension;
@@ -53,17 +62,7 @@ public class squareSubMatrice {
         return new squareSubMatrice(dimension, firstLine, firstColumn, lastLine, lastColumn, nMatrix);
     }
 
-    public squareSubMatrice localisedClone(int firstLine,int lastLine,int firstColumn,int lastColumn) {
-        squareSubMatrice cl = this.clone();
-        int subDimension = lastLine - firstLine + 1;
-        int[][] nMatrix = new int[subDimension][subDimension];
-        for (int i = 0; i < subDimension; i++) {
-            for (int j = 0; j < subDimension; j++) {
-                nMatrix[i][j] = cl.get(i + firstLine,j + firstColumn);
-            }
-        }
-        return new squareSubMatrice(subDimension,0,0,subDimension-1,subDimension-1,nMatrix);
-    }
+
 
     public int get(int row, int col) {
         return this.matrix[firstLine + row][firstColumn + col];
@@ -141,6 +140,18 @@ public class squareSubMatrice {
             this.power((n-1)/2);
             this.product(cl);
         }
+    }
+
+    public squareSubMatrice localisedClone(int firstLine,int lastLine,int firstColumn,int lastColumn) {
+        squareSubMatrice cl = this.clone();
+        int subDimension = lastLine - firstLine + 1;
+        int[][] nMatrix = new int[subDimension][subDimension];
+        for (int i = 0; i < subDimension; i++) {
+            for (int j = 0; j < subDimension; j++) {
+                nMatrix[i][j] = cl.get(i + firstLine,j + firstColumn);
+            }
+        }
+        return new squareSubMatrice(subDimension,0,0,subDimension-1,subDimension-1,nMatrix);
     }
 
     //modifier la matrice initiale en remplaçant ses valeur par les valeurs de sous-matrice
