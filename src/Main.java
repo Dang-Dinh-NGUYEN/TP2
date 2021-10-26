@@ -12,6 +12,7 @@ import java.util.Random;
 
 public class Main {
     public static void main(String[] Ags) {
+        /**
         Random rand = new Random();
         int[][] matrix = new int[4][4];
         for (int i = 0; i < 4; i++) {
@@ -28,6 +29,9 @@ public class Main {
             }
         }
         squareSubMatrice subMatrice = new squareSubMatrice(4, 0, 0, 3, 3, subMatrix);
+        **/
+        squareSubMatrice matrice = squareSubMatrice.createMatrix1(2);
+        squareSubMatrice subMatrice = squareSubMatrice.createMatrix(2);
 
         System.out.println(matrice.toString());
         //System.out.println(matrice.equals(matrice.clone()));

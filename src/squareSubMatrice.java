@@ -10,6 +10,7 @@
 
 import java.util.Arrays;
 import java.util.Objects;
+import java.util.Random;
 
 public class squareSubMatrice {
     private int dimension;
@@ -51,6 +52,28 @@ public class squareSubMatrice {
     public int getLastColumn() {
         return lastColumn;
     }
+    // créer une sous-Matrice et la remplissant avec 1
+    public static squareSubMatrice createMatrix1(int dimension){
+        int[][] matrix = new int[dimension][dimension];
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrix[i][j] = 1;
+            }
+        }
+        return new squareSubMatrice(dimension, 0, 0, dimension-1, dimension-1, matrix);
+    }
+    // créer une sous-Matrice et la remplissant avec des entiers aléatoires
+    public static squareSubMatrice createMatrix(int dimension){
+        Random rand = new Random();
+        int[][] matrix = new int[dimension][dimension];
+        for (int i = 0; i < dimension; i++) {
+            for (int j = 0; j < dimension; j++) {
+                matrix[i][j] = rand.nextInt(10);;
+            }
+        }
+        return new squareSubMatrice(dimension, 0, 0, dimension-1, dimension-1, matrix);
+    }
+
 
     public squareSubMatrice clone() {
         int[][] nMatrix = new int[dimension][dimension];
@@ -141,6 +164,32 @@ public class squareSubMatrice {
             this.product(cl);
         }
     }
+
+    /**
+     * Exo7:
+     * En donnant un algorithme récursif permettant de calculer le produit de deux matrices carrées de même dimension,
+     * nous voudrions montrer un exemple comme ci-dessous:
+     *
+     * quickProduit:
+     * entrée:
+     *         A une matrice carrée de dimension N (N est une puissance de 2).
+     *         B une matrice carrée de dimension N (N est une puissance de 2).
+     * sortie: produit de deux matrices.
+     *
+     * début:
+     *         C = une nouveau matrice carrée de dimension N.
+     *         si (N == 1) alors retourner C = A.B
+     *         sinon:
+     *         C11 = quickProduit(A11,B11) + quickProduit(A12,B21)
+     *         C12 = quickProduit(A11,B12) + quickProduit(A12,B22)
+     *         C21 = quickProduit(A21,B11) + quickProduit(A22,B21)
+     *         C22 = quickProduit(A21,B12) + quickProduit(A22,B22)
+     * retourner C
+     * fin
+     *
+     * D'où:
+     * [C11 C12][C21 C22] = [A11 A12][A21 A22] * [B11 B12][B21 B22]
+     */
 
     public squareSubMatrice localisedClone(int firstLine,int lastLine,int firstColumn,int lastColumn) {
         squareSubMatrice cl = this.clone();
