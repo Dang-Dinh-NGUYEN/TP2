@@ -143,6 +143,13 @@ public class squareSubMatrice {
         }
     }
 
+    //modifier la matrice initiale en remplaçant ses valeur par les valeurs de sous-matrice
+    public void join(squareSubMatrice subMatrice, int firstLine,int firstColumn){
+        for (int i1=0, i2=firstLine; i1 < subMatrice.getDimension(); i1++, i2++)
+            for (int j1=0, j2=firstColumn; j1 < subMatrice.getDimension(); j1++, j2++)
+                this.set(i2,j2,subMatrice.get(i1,j1));
+    }
+
     public void quickProduct(squareSubMatrice subMatrice){
         if((this.getDimension() == subMatrice.getDimension()) && (this.getDimension() % 2 == 1)){
             this.product(subMatrice);
@@ -155,7 +162,6 @@ public class squareSubMatrice {
             int newLastColumn = this.lastColumn ;
 
             //divise la matrice initiale aux 4 sous-matrices de dimension n/2 (où n est la dimension de la matrice initiale)
-
             squareSubMatrice A11 = this.localisedClone(newFirstLine, newDimension-1, newFirstColumn, newDimension-1);
             squareSubMatrice B11 = subMatrice.localisedClone(newFirstLine, newDimension-1, newFirstColumn, newDimension-1);
             squareSubMatrice A12 = this.localisedClone(newFirstLine, newDimension-1, newDimension, newLastColumn);
@@ -167,40 +173,50 @@ public class squareSubMatrice {
 
             //ajoute les copies des sous-matrices
             squareSubMatrice A11c = A11.clone();
-            squareSubMatrice B11c = B11.clone();
             squareSubMatrice A12c = A12.clone();
-            squareSubMatrice B12c = B12.clone();
             squareSubMatrice A21c = A21.clone();
-            squareSubMatrice B21c = B21.clone();
             squareSubMatrice A22c = A22.clone();
-            squareSubMatrice B22c = B22.clone();
 
             //les calculs sur les sous-matrices
             //C11 = quickProduit(A11,B11) + quickProduit(A12,B21)
-            A11c.quickProduct(B11c);
-            A12c.quickProduct(B21c);
+            A11c.quickProduct(B11);
+            A12c.quickProduct(B21);
             A11c.sum(A12c);
-            this.set(newFirstLine,newFirstColumn,A11c.get(newFirstLine,newFirstColumn));
-
+            this.join(A11c,newFirstLine,newFirstColumn);
 
             //C12 = quickProduit(A11,B12) + quickProduit(A12,B22)
             A11.quickProduct(B12);
             A12.quickProduct(B22);
             A11.sum(A12);
-            //this.set(newFirstLine,newDimension,A11.get(newFirstLine,newFirstColumn));
+            this.join(A11,newFirstLine,newDimension);
 
             //C21 = quickProduit(A21,B11) + quickProduit(A22,B21)
-            A21c.quickProduct(B11c);
-            A22c.quickProduct(B21c);
+            A21c.quickProduct(B11);
+            A22c.quickProduct(B21);
             A21c.sum(A22c);
-            //this.set(newDimension,newFirstColumn,A21c.get(newFirstLine,newFirstColumn));
+            this.join(A21c,newDimension,newFirstColumn);
 
             //C22 = quickProduit(A21,B12) + quickProduit(A22,B22)
-            A21.quickProduct(B12c);
-            A22.quickProduct(B22c);
+            A21.quickProduct(B12);
+            A22.quickProduct(B22);
             A21.sum(A22);
-            //this.set(newDimension,newDimension,A21.get(newFirstColumn,newFirstColumn));
+            this.join(A21,newDimension,newDimension);
+        }
+    }
 
+    public void veryQuickPower(int n){
+        if (n == 0 || n == 1) {
+            return;
+        }
+        if(n > 1 && n % 2 == 0){
+            this.quickProduct(this.clone());
+            this.veryQuickPower(n/2);
+        }
+        else{
+            squareSubMatrice cl = this.clone();
+            this.quickProduct(this.clone());
+            this.veryQuickPower((n-1)/2);
+            this.quickProduct(cl);
         }
     }
 
